@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>quack</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background-color: black;
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      import init, { quack, cf } from "./pkg/quack_web.js";
+
+      init().then(async () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const n = 3;
+        const w = 1 << (cf() * n);
+        canvas.height = canvas.width = w;
+        document.body.append(canvas);
+        const idata = ctx.createImageData(w, w);
+        const q = quack(n);
+        for (let i = 0; i < 1000000; ++i) {
+          const arr = q();
+          idata.data.set(arr);
+          ctx.putImageData(idata, 0, 0);
+          await sleep(16);
+        }
+      });
+    </script>
+  </body>
+</html>

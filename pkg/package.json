@@ -1,0 +1,15 @@
+{
+  "name": "quack-web",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "quack_web_bg.wasm",
+    "quack_web.js",
+    "quack_web.d.ts"
+  ],
+  "main": "quack_web.js",
+  "types": "quack_web.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
